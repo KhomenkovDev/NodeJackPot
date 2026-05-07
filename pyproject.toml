@@ -1,0 +1,11 @@
+[project]
+name = "nodejackpot"
+version = "1.0.0"
+description = "⚔️ A provably-fair Viking elimination raffle powered by Chainlink VRF 2.5 — featuring quadratic ticket pricing, multi-winner tiered payouts, rolling jackpots, pull-payment vesting, and a refund safety-switch."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+keywords = ["vyper", "raffle", "chainlink-vrf", "smart-contracts", "ethereum", "moccasin"]
+dependencies = [
+    "moccasin>=0.4.4",
+]
