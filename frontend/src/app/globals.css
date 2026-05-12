@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  
+  --color-emerald: #00FFBB;
+  --color-violet-aurora: #8B5CF6;
+  --color-slate-nordic: #94A3B8;
+  --color-charcoal: #0A0A0B;
+  
+  --color-accent: var(--color-emerald);
+  --color-accent-dim: rgba(0, 255, 187, 0.1);
+  --color-border: rgba(255, 255, 255, 0.08);
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-zinc-100 selection:bg-emerald/30;
+    background-image: 
+      radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.15), transparent 50%),
+      radial-gradient(circle at 0% 0%, rgba(0, 255, 187, 0.05), transparent 40%);
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-zinc-900/40 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden;
+    box-shadow: 
+      0 4px 24px -1px rgba(0, 0, 0, 0.5),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .glass-card:hover {
+    @apply border-white/10 bg-zinc-900/60;
+    box-shadow: 
+      0 8px 32px -1px rgba(0, 0, 0, 0.6),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  .neon-text {
+    text-shadow: 0 0 12px rgba(0, 255, 187, 0.4);
+  }
+  
+  .aurora-text {
+    @apply bg-gradient-to-r from-emerald to-violet-aurora bg-clip-text text-transparent;
+  }
+
+  .mono-number {
+    @apply font-mono tracking-tighter;
+  }
+}
+
+/* ConnectKit Overrides */
+:root {
+  --ck-font-family: var(--font-outfit);
+  --ck-border-radius: 16px;
+  --ck-colors-accent: #00FFBB;
+  --ck-colors-accentHover: #00E6A9;
+  --ck-background: #0A0A0B;
+  --ck-secondary-background: #161618;
+  --ck-border-color: rgba(255, 255, 255, 0.05);
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}

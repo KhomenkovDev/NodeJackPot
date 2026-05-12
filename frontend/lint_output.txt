@@ -1,0 +1,46 @@
+
+> frontend@0.1.0 lint
+> eslint
+
+
+/Users/nova/Projects/KhomDev/NodeJackPot/frontend/src/app/page.tsx
+   14:33  warning  'isLoading' is assigned a value but never used                                                                                                                                                                                                                                           @typescript-eslint/no-unused-vars
+  122:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  123:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/nova/Projects/KhomDev/NodeJackPot/frontend/src/components/EliminationFeed.tsx
+   3:20  warning  'useEffect' is defined but never used     @typescript-eslint/no-unused-vars
+   9:10  warning  'clsx' is defined but never used          @typescript-eslint/no-unused-vars
+  28:22  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  29:26  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  84:31  warning  'idx' is defined but never used           @typescript-eslint/no-unused-vars
+
+/Users/nova/Projects/KhomDev/NodeJackPot/frontend/src/components/QuadraticEntry.tsx
+    5:23   warning  'parseEther' is defined but never used                           @typescript-eslint/no-unused-vars
+    9:28   warning  'Zap' is defined but never used                                  @typescript-eslint/no-unused-vars
+   17:10   warning  'stakeAmount' is assigned a value but never used                 @typescript-eslint/no-unused-vars
+   17:23   warning  'setStakeAmount' is assigned a value but never used              @typescript-eslint/no-unused-vars
+  116:169  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  116:176  error    `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+/Users/nova/Projects/KhomDev/NodeJackPot/frontend/src/components/VaultUI.tsx
+  13:11  warning  'address' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  35:7   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/nova/Projects/KhomDev/NodeJackPot/frontend/src/components/VaultUI.tsx:35:7
+  33 |   useEffect(() => {
+  34 |     if (!unlockTime || unlockTime === 0n) {
+> 35 |       setTimeLeft(null);
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  36 |       return;
+  37 |     }
+  38 |  react-hooks/set-state-in-effect
+
+✖ 16 problems (5 errors, 11 warnings)
+
