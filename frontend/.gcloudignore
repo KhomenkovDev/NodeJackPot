@@ -12,3 +12,8 @@ dist
 .env.production.local
 .DS_Store
 *.log
+.gemini/
+.env*
+.git/
+node_modules/
+.next/

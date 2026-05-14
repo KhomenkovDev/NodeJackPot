@@ -22,11 +22,12 @@ export function EliminationFeed() {
     address: NODE_JACKPOT_ADDRESS,
     abi: RAFFLE_ABI,
     eventName: 'VikingEliminated',
-    onLogs(logs) {
-      const newEvents = logs.map((l: any) => {
+    onLogs(logs: unknown[]) {
+      const newEvents = (logs as any[]).map((l) => {
+        const args = l.args as { loser: string; remaining: bigint };
         return {
-          loser: l.args.loser,
-          remaining: l.args.remaining,
+          loser: args.loser,
+          remaining: args.remaining,
           timestamp: Date.now(),
         };
       });

@@ -14,8 +14,8 @@ export function VaultUI() {
 
   useEffect(() => {
     if (!unlockTime || unlockTime === 0n) {
-      setTimeLeft(null);
-      return;
+      const t = setTimeout(() => setTimeLeft(null), 0);
+      return () => clearTimeout(t);
     }
 
     const timer = setInterval(() => {

@@ -13,9 +13,9 @@ export function useRaffle() {
     hash,
   });
 
-  const handleError = (error: any) => {
+  const handleError = (error: unknown) => {
     console.error('Raffle Action Error:', error);
-    const message = error.shortMessage || error.message || 'Transaction failed';
+    const message = (error as { shortMessage?: string }).shortMessage || (error as Error).message || 'Transaction failed';
     toast.error(message);
   };
 
