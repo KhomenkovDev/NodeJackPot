@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useJackpotData } from '@/hooks/useJackpotData';
 import { useWatchContractEvent } from 'wagmi';
 import { RAFFLE_ABI, NODE_JACKPOT_ADDRESS } from '@/lib/contracts';
-import { Skull, Loader2, Zap, User, Target, Swords } from 'lucide-react';
+import { Skull, Loader2, Zap, Swords } from 'lucide-react';
 
 type EliminationEvent = {
   loser: string;
@@ -22,9 +22,10 @@ export function EliminationFeed() {
     address: NODE_JACKPOT_ADDRESS,
     abi: RAFFLE_ABI,
     eventName: 'VikingEliminated',
-    onLogs(logs: unknown[]) {
-      const newEvents = (logs as any[]).map((l) => {
-        const args = l.args as { loser: string; remaining: bigint };
+    onLogs(logs) {
+      const newEvents = logs.map((l) => {
+        const log = l as unknown as { args: { loser: string; remaining: bigint } };
+        const args = log.args;
         return {
           loser: args.loser,
           remaining: args.remaining,

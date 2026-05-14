@@ -24,7 +24,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
-        <ConnectKitProvider theme={"dark" as any}>
+        <ConnectKitProvider mode="dark">
           {children}
         </ConnectKitProvider>
       </QueryClientProvider>
