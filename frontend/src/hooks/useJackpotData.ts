@@ -68,7 +68,14 @@ export function useJackpotData() {
     raffleState: data?.[2]?.result as bigint | undefined, // 0: OPEN, 1: ELIMINATING, 2: CALCULATING, 3: FINISHED, 4: REFUNDABLE
     activeVikings: data?.[3]?.result as bigint | undefined,
     entranceFee: data?.[4]?.result as bigint | undefined,
-    playerProfile: data?.[5]?.result as [bigint, boolean, bigint, boolean] | undefined,
+    // The contract's `Player` struct has FIVE fields (in this order):
+    //   tickets, is_alive, contribution, has_refunded, round_id
+    // The previous declaration was missing `round_id`. Reading index 4 on a
+    // 4-element tuple would silently yield `undefined` — which was the
+    // "minor frontend data type mismatch" flagged by the audit.
+    playerProfile: data?.[5]?.result as
+        | readonly [tickets: bigint, isAlive: boolean, contribution: bigint, hasRefunded: boolean, roundId: bigint]
+        | undefined,
     pendingClaim: data?.[6]?.result as bigint | undefined,
     unlockTime: data?.[7]?.result as bigint | undefined,
     roundNumber: data?.[8]?.result as bigint | undefined,

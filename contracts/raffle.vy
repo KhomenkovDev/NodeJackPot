@@ -20,6 +20,27 @@ initializes: ow
 exports: ow.__interface__
 
 # ──────────────────────────────────────────────────────────────────────────────
+# Chainlink VRF V2.5 — request struct + interface
+# ──────────────────────────────────────────────────────────────────────────────
+#
+# The coordinator's `requestRandomWords` takes ONE tuple parameter — the
+# `RandomWordsRequest` struct — not flat positional args. Calling the flat
+# variant via raw_call(method_id("requestRandomWords(bytes32,uint256,...)"))
+# produces a selector that does not exist on the live coordinator and fails
+# on mainnet. We use a proper Vyper interface so the encoding is correct.
+
+struct RandomWordsRequest:
+    keyHash: bytes32
+    subId: uint256
+    requestConfirmations: uint16
+    callbackGasLimit: uint32
+    numWords: uint32
+    extraArgs: Bytes[256]
+
+interface IVRFCoordinatorV2Plus:
+    def requestRandomWords(req: RandomWordsRequest) -> uint256: nonpayable
+
+# ──────────────────────────────────────────────────────────────────────────────
 # Constants
 # ──────────────────────────────────────────────────────────────────────────────
 
@@ -259,23 +280,16 @@ def request_elimination():
 
     self.raffle_state = RaffleState.CALCULATING
 
-    # Trigger VRF 2.5 Request
-    response: Bytes[32] = raw_call(
-        VRF_COORDINATOR,
-        concat(
-            method_id("requestRandomWords(bytes32,uint256,uint16,uint32,uint32,bytes)"),
-            abi_encode(
-                GAS_LANE,
-                SUBSCRIPTION_ID,
-                convert(3, uint16),
-                CALLBACK_GAS_LIMIT,
-                NUM_WORDS,
-                b"",
-            ),
-        ),
-        max_outsize=32,
+    # Trigger VRF 2.5 Request — single struct parameter, not flat positionals.
+    request: RandomWordsRequest = RandomWordsRequest(
+        keyHash=GAS_LANE,
+        subId=SUBSCRIPTION_ID,
+        requestConfirmations=3,
+        callbackGasLimit=CALLBACK_GAS_LIMIT,
+        numWords=NUM_WORDS,
+        extraArgs=b"",
     )
-    request_id: uint256 = convert(extract32(response, 0), uint256)
+    request_id: uint256 = extcall IVRFCoordinatorV2Plus(VRF_COORDINATOR).requestRandomWords(request)
 
     log EliminationRequested(round_id=self.round_number, request_id=request_id)
 
