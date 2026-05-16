@@ -6,9 +6,10 @@ import { EliminationFeed } from '@/components/EliminationFeed';
 import { VaultUI } from '@/components/VaultUI';
 import { useJackpotData } from '@/hooks/useJackpotData';
 import { NODE_JACKPOT_ADDRESS } from '@/lib/contracts';
-import { Shield, ExternalLink, Activity, Info, Zap, Swords, Anchor, Cpu } from 'lucide-react';
+import { Shield, ExternalLink, Info, Zap, Swords, Anchor, Cpu } from 'lucide-react';
 import { formatEther } from 'viem';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function Home() {
   const { potSize, roundNumber } = useJackpotData();
@@ -175,8 +176,8 @@ export default function Home() {
       {/* Footer */}
       <footer className="pt-16 pb-12 border-t border-white/5 text-center space-y-6">
         <div className="flex items-center justify-center gap-8 opacity-20 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-          <img src="https://cryptologos.cc/logos/chainlink-link-logo.png" className="h-5" alt="Chainlink" />
-          <img src="https://cryptologos.cc/logos/arbitrum-arb-logo.png" className="h-5" alt="Arbitrum" />
+          <Image src="https://cryptologos.cc/logos/chainlink-link-logo.png" width={20} height={20} className="h-5 w-auto" alt="Chainlink" />
+          <Image src="https://cryptologos.cc/logos/arbitrum-arb-logo.png" width={20} height={20} className="h-5 w-auto" alt="Arbitrum" />
           <div className="h-4 w-px bg-zinc-800 mx-2" />
           <span className="font-mono text-[10px] uppercase tracking-[0.5em] text-zinc-400">KHOMDEV PROTOCOL</span>
         </div>
